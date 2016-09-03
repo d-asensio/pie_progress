@@ -1,0 +1,26 @@
+{
+  "name": "pie_progress",
+  "version": "0.0.1",
+  "private": false,
+  "description": "A simple approach of a PieProgress made with SVG, svg.js and typescript.",
+  "main": "dist/PieProgress.js",
+  "directories": {
+    "source": "src",
+    "lib": "lib",
+    "definitions": "definitions"
+  },
+  "author": "David Asensio Cañas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-asensio/pie_progress.git"
+  },
+  "github": "https://github.com/d-asensio/pie_progress",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "svgjs": "^2.2.5"
+  },
+  "devDependencies": {
+    "tslint": "^3.15.1",
+    "typescript": "^1.8.10"
+  }
+}
