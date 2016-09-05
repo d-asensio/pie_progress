@@ -39,6 +39,7 @@ namespace PieP {
     class PieProgressModel {
         private _radius: number
         private _percentage: number
+        private _color: string
 
         private _change: Event <PieProgressModel>
 
@@ -47,6 +48,7 @@ namespace PieP {
 
             this.setRadius(radius)
             this.setPercentage(percentage)
+            this.setColor("#1b51aa")
         }
 
         public setRadius(radius: number): void {
@@ -93,6 +95,15 @@ namespace PieP {
             }
         }
 
+        public setColor(color: string): void {
+            this._color = color
+            this._change.notify()
+        }
+
+        public getColor(): string {
+            return this._color
+        }
+
         public onChange(changeCallback: (sender: PieProgressModel) => any): void {
             this._change.attach(changeCallback)
         }
@@ -120,13 +131,12 @@ namespace PieP {
 
             this._dataText = this._container.text("")
 
-            this.stylize()
             this.render()
         }
 
         private stylize(): void {
             this._pieProgressPath.attr({
-                  "fill": "#1b51aa"
+                  "fill": this._model.getColor()
             })
 
             this._dataCircle.attr({
@@ -138,11 +148,13 @@ namespace PieP {
                 , size: this._model.getRadius() / 2
                 , leading: "1.5em"
             }).attr({
-                  "fill": "#1b51aa"
+                  "fill": this._model.getColor()
             })
         }
 
         public render(): void {
+            this.stylize()
+
             const pathArray = this.getPathArray()
             this._pieProgressPath.plot(pathArray.toString())
 

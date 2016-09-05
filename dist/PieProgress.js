@@ -34,6 +34,7 @@ var PieP;
             this._change = new Event(this);
             this.setRadius(radius);
             this.setPercentage(percentage);
+            this.setColor("#1b51aa");
         }
         PieProgressModel.prototype.setRadius = function (radius) {
             this._radius = radius;
@@ -70,6 +71,13 @@ var PieP;
                 y: ay
             };
         };
+        PieProgressModel.prototype.setColor = function (color) {
+            this._color = color;
+            this._change.notify();
+        };
+        PieProgressModel.prototype.getColor = function () {
+            return this._color;
+        };
         PieProgressModel.prototype.onChange = function (changeCallback) {
             this._change.attach(changeCallback);
         };
@@ -86,12 +94,11 @@ var PieP;
             this._pieProgressPath = this._container.path(pathArray.toString());
             this._dataCircle = this._container.circle();
             this._dataText = this._container.text("");
-            this.stylize();
             this.render();
         }
         PieProgressView.prototype.stylize = function () {
             this._pieProgressPath.attr({
-                "fill": "#1b51aa"
+                "fill": this._model.getColor()
             });
             this._dataCircle.attr({
                 "fill": "#ffffff"
@@ -101,10 +108,11 @@ var PieP;
                 size: this._model.getRadius() / 2,
                 leading: "1.5em"
             }).attr({
-                "fill": "#1b51aa"
+                "fill": this._model.getColor()
             });
         };
         PieProgressView.prototype.render = function () {
+            this.stylize();
             var pathArray = this.getPathArray();
             this._pieProgressPath.plot(pathArray.toString());
             this._dataCircle.radius(this._model.getRadius() - this._model.getRadius() / 4)
